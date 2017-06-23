@@ -107,6 +107,9 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
             result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
         
         self.setCaretPosition(position, inField: field)
+        
+        field.sendActions(for: .editingChanged)
+        
         self.listener?.textField?(
             field,
             didFillMandatoryCharacters: result.complete,
@@ -208,6 +211,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         field.text = result.formattedText.string
         self.setCaretPosition(range.location, inField: field)
         
+        field.sendActions(for: .editingChanged)
+        
         return (result.extractedValue, result.complete)
     }
     
@@ -234,6 +239,8 @@ open class MaskedTextFieldDelegate: NSObject, UITextFieldDelegate {
         let position: Int =
             result.formattedText.string.distance(from: result.formattedText.string.startIndex, to: result.formattedText.caretPosition)
         self.setCaretPosition(position, inField: field)
+        
+        field.sendActions(for: .editingChanged)
         
         return (result.extractedValue, result.complete)
     }
